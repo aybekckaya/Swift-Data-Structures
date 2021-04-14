@@ -64,17 +64,30 @@ extension LinkedListTests {
             return false
         }
         checkValuesSame(valuesLeft: given, valuesRight: arrListValues, isOrdered: true)
+    }
+    
+    func test4FindShouldReturnAllAppropriateResults() {
+        var foundItems: [String] = []
+        let list = LinkedList<String>()
+        list.insert("A")
+        list.insert("B")
+        list.insert("C")
+        list.insert("D")
+        list.insert("A")
         
+        foundItems = list.find { (index, value, node) -> (Bool) in
+            if value == "A" { return true }
+            return false
+        }
+        
+        XCTAssert(foundItems.count == 2, "Found Item Count should be 2. Current Count is:  \(foundItems.count)")
+        XCTAssert(foundItems.first == "A", "Found item should be A. Current Val : \(String(describing: foundItems.first))")
     }
 }
 
 // MARK: Helpers
-fileprivate protocol ComparableValues {
-    
-}
-
 extension LinkedListTests {
-    private func checkValuesSame<T>(valuesLeft: [T], valuesRight: [T], isOrdered: Bool)  {
+    private func checkValuesSame<T: Comparable>(valuesLeft: [T], valuesRight: [T], isOrdered: Bool)  {
         if valuesLeft.count != valuesRight.count {
             XCTFail("Count are not equal. Left : \(valuesLeft.count), Right: \(valuesRight.count)")
             return
