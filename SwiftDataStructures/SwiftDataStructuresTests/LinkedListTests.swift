@@ -69,6 +69,10 @@ extension LinkedListTests {
 }
 
 // MARK: Helpers
+fileprivate protocol ComparableValues {
+    
+}
+
 extension LinkedListTests {
     private func checkValuesSame<T>(valuesLeft: [T], valuesRight: [T], isOrdered: Bool)  {
         if valuesLeft.count != valuesRight.count {
@@ -78,7 +82,7 @@ extension LinkedListTests {
         for index in 0 ..< valuesLeft.count {
             let leftValue = valuesLeft[index]
             let rightValue = valuesRight[index]
-            
+            XCTAssert(leftValue == rightValue, "Left and Right values are not equal. Left: \(leftValue) , Right: \(rightValue)")
         }
     }
 }
